@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_produto")
 public class Produto implements Serializable{
@@ -26,6 +28,7 @@ public class Produto implements Serializable{
 	private String nome;
 	private Double preco;
 	
+	@JsonIgnore
 	@ManyToMany //relacao muitos-para-muitos, chave composta, tabela que referencia duas tabelas
 	@JoinTable(name = "PRODUTO_CATEGORIA", //JoinTable = criando tabela
 	joinColumns = @JoinColumn(name = "produto_id"), //joinColumns = nome da coluna da classe que estou

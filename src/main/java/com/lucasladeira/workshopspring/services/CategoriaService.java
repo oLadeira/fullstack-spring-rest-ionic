@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.lucasladeira.workshopspring.domain.Categoria;
 import com.lucasladeira.workshopspring.repositories.CategoriaRepository;
+import com.lucasladeira.workshopspring.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {
@@ -24,7 +25,7 @@ public class CategoriaService {
 		Optional<Categoria> opt = categoriaRepository.findById(id);
 		
 		if(opt.isEmpty()) {
-			throw new RuntimeException();
+			throw new ObjectNotFoundException("Categoria não encontrada! ID: " + id);
 		}
 		
 		return opt;
