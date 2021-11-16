@@ -11,10 +11,15 @@ import org.springframework.context.annotation.Profile;
 
 import com.lucasladeira.workshopspring.domain.Categoria;
 import com.lucasladeira.workshopspring.domain.Cidade;
+import com.lucasladeira.workshopspring.domain.Cliente;
+import com.lucasladeira.workshopspring.domain.Endereco;
 import com.lucasladeira.workshopspring.domain.Estado;
 import com.lucasladeira.workshopspring.domain.Produto;
+import com.lucasladeira.workshopspring.domain.enums.TipoCliente;
 import com.lucasladeira.workshopspring.repositories.CategoriaRepository;
 import com.lucasladeira.workshopspring.repositories.CidadeRepository;
+import com.lucasladeira.workshopspring.repositories.ClienteRepository;
+import com.lucasladeira.workshopspring.repositories.EnderecoRepository;
 import com.lucasladeira.workshopspring.repositories.EstadoRepository;
 import com.lucasladeira.workshopspring.repositories.ProdutoRepository;
 
@@ -33,6 +38,12 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	
 	@Override
@@ -73,6 +84,20 @@ public class TestConfig implements CommandLineRunner{
 		
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(cid1, cid2, cid3));
+		
+		
+		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		
+		cli1.getTelefones().addAll(Arrays.asList("2763323", "9383893"));
+		
+		
+		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38220834", cli1, cid2);		
+		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "3877012", cli1, cid1);
+		
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 	}
 
 }
