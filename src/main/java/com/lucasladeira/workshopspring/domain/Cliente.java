@@ -39,6 +39,8 @@ public class Cliente implements Serializable{
 	@CollectionTable(name = "telefone")
 	private Set<String> telefones = new HashSet<>(); //por conta do telefone ser uma classe fraca "weak" (possui poucos atributos) usei o set para armazena-lo
 	
+	private List<Pedido> pedidos = new ArrayList<>();
+	
 	public Cliente () {}
 
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
@@ -105,6 +107,10 @@ public class Cliente implements Serializable{
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
+	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}	
 
 	@Override
 	public int hashCode() {
@@ -121,7 +127,6 @@ public class Cliente implements Serializable{
 			return false;
 		Cliente other = (Cliente) obj;
 		return Objects.equals(id, other.id);
-	}
-	
+	}	
 	
 }
