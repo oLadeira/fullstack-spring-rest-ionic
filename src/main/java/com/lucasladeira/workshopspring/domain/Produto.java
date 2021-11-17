@@ -38,6 +38,7 @@ public class Produto implements Serializable{
 	inverseJoinColumns = @JoinColumn(name = "categoria_id")) //inverseJoinColumns = nome da coluna da classe que estou associando, no caso categorias
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
@@ -50,6 +51,7 @@ public class Produto implements Serializable{
 		this.preco = preco;
 	}
 	
+	@JsonIgnore //tudo que comeca com get é serializado
 	public List<Pedido> getPedidos(){
 		List<Pedido> lista = new ArrayList<>();
 		for(ItemPedido x : itens) {
@@ -57,7 +59,7 @@ public class Produto implements Serializable{
 		}
 		return lista;
 	}
-
+	
 	public Integer getId() {
 		return id;
 	}

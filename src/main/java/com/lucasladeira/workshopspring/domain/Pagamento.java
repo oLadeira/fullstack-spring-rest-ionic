@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lucasladeira.workshopspring.domain.enums.EstadoPagamento;
 
 @Entity
@@ -21,8 +22,10 @@ public abstract class Pagamento implements Serializable{
 	
 	@Id
 	private Integer id;
+	
 	private Integer estado;
 	
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	@MapsId //faz com que Pagamento e pedido tenham os mesmos ids
@@ -76,8 +79,5 @@ public abstract class Pagamento implements Serializable{
 			return false;
 		Pagamento other = (Pagamento) obj;
 		return Objects.equals(id, other.id);
-	}
-	
-	
-	
+	}	
 }
