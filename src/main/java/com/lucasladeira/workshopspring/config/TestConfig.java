@@ -15,6 +15,7 @@ import com.lucasladeira.workshopspring.domain.Cidade;
 import com.lucasladeira.workshopspring.domain.Cliente;
 import com.lucasladeira.workshopspring.domain.Endereco;
 import com.lucasladeira.workshopspring.domain.Estado;
+import com.lucasladeira.workshopspring.domain.ItemPedido;
 import com.lucasladeira.workshopspring.domain.Pagamento;
 import com.lucasladeira.workshopspring.domain.PagamentoComBoleto;
 import com.lucasladeira.workshopspring.domain.PagamentoComCartao;
@@ -27,6 +28,7 @@ import com.lucasladeira.workshopspring.repositories.CidadeRepository;
 import com.lucasladeira.workshopspring.repositories.ClienteRepository;
 import com.lucasladeira.workshopspring.repositories.EnderecoRepository;
 import com.lucasladeira.workshopspring.repositories.EstadoRepository;
+import com.lucasladeira.workshopspring.repositories.ItemPedidoRepository;
 import com.lucasladeira.workshopspring.repositories.PagamentoRepository;
 import com.lucasladeira.workshopspring.repositories.PedidoRepository;
 import com.lucasladeira.workshopspring.repositories.ProdutoRepository;
@@ -58,6 +60,9 @@ public class TestConfig implements CommandLineRunner{
 	
 	@Autowired
 	private PedidoRepository pedidoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	@Override
 	public void run(String... args) throws Exception {
@@ -129,6 +134,19 @@ public class TestConfig implements CommandLineRunner{
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 		
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 	}
 
 }
