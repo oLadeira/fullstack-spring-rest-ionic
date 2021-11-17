@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.lucasladeira.workshopspring.domain.Categoria;
 import com.lucasladeira.workshopspring.repositories.CategoriaRepository;
+import com.lucasladeira.workshopspring.services.exceptions.DataIntegrityException;
 import com.lucasladeira.workshopspring.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -46,5 +48,20 @@ public class CategoriaService {
 		
 		categoria.setId(id);
 		return categoriaRepository.save(categoria);
+	}
+	
+	public void delete (Integer id) {
+		Optional<Categoria> opt = categoriaRepository.findById(id);
+		
+		if(opt.isEmpty()) {
+			throw new ObjectNotFoundException("Categoria não encontrada! ID: " + id);
+		}
+		try {
+			categoriaRepository.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}
+		
 	}
 }
