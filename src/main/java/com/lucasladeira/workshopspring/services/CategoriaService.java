@@ -35,4 +35,16 @@ public class CategoriaService {
 		categoria.setId(null);
 		return categoriaRepository.save(categoria);
 	}
+	
+	public Categoria update (Integer id, Categoria categoria) {
+		
+		Optional<Categoria> opt = categoriaRepository.findById(id);
+		
+		if (opt.isEmpty()) {
+			throw new ObjectNotFoundException("Categoria não encontrada!");
+		}
+		
+		categoria.setId(id);
+		return categoriaRepository.save(categoria);
+	}
 }
