@@ -2,8 +2,10 @@ package com.lucasladeira.workshopspring.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +37,8 @@ public class Produto implements Serializable{
 	inverseJoinColumns = @JoinColumn(name = "categoria_id")) //inverseJoinColumns = nome da coluna da classe que estou associando, no caso categorias
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	private Set<ItemPedido> itens = new HashSet<>();
+	
 	public Produto() {}
 
 	public Produto(Integer id, String nome, Double preco) {
@@ -42,6 +46,14 @@ public class Produto implements Serializable{
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
+	}
+	
+	public List<Pedido> getPedidos(){
+		List<Pedido> lista = new ArrayList<>();
+		for(ItemPedido x : itens) {
+			lista.add(x.getPedido());
+		}
+		return lista;
 	}
 
 	public Integer getId() {
@@ -72,6 +84,13 @@ public class Produto implements Serializable{
 		return categorias;
 	}
 	
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -88,5 +107,5 @@ public class Produto implements Serializable{
 			return false;
 		Produto other = (Produto) obj;
 		return Objects.equals(id, other.id);
-	}	
+	}		
 }
