@@ -4,13 +4,23 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Pedido implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	@Id
+	@GeneratedValue
 	private Integer id;
 	private Date instante;
 	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido") //evitar erro
 	private Pagamento pagamento;
 	
 	private Cliente cliente;
