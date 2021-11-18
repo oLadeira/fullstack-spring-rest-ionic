@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.lucasladeira.workshopspring.domain.Categoria;
+import com.lucasladeira.workshopspring.dto.CategoriaDTO;
 import com.lucasladeira.workshopspring.repositories.CategoriaRepository;
 import com.lucasladeira.workshopspring.services.exceptions.DataIntegrityException;
 import com.lucasladeira.workshopspring.services.exceptions.ObjectNotFoundException;
@@ -73,5 +74,9 @@ public class CategoriaService {
 			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
 		}
 		
+	}
+	
+	public Categoria fromDTO(CategoriaDTO categoriaDTO) {
+		return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
 	}
 }
