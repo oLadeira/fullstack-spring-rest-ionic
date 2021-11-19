@@ -57,8 +57,11 @@ public class CategoriaService {
 			throw new ObjectNotFoundException("Categoria não encontrada!");
 		}
 		
-		categoria.setId(id);
-		return categoriaRepository.save(categoria);
+		Categoria databaseCategoria = opt.get();
+		
+		updateData(databaseCategoria, categoria);
+		
+		return categoriaRepository.save(databaseCategoria);
 	}
 	
 	public void delete (Integer id) {
@@ -76,7 +79,12 @@ public class CategoriaService {
 		
 	}
 	
+	
 	public Categoria fromDTO(CategoriaDTO categoriaDTO) {
 		return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
+	}
+	
+	private void updateData(Categoria databaseCategoria, Categoria categoria) {
+		databaseCategoria.setNome(categoria.getNome());
 	}
 }
