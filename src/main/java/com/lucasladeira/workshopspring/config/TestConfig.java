@@ -110,6 +110,7 @@ public class TestConfig implements CommandLineRunner{
 		
 		
 		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		Cliente cli2 = new Cliente(null, "Pedro Henrique", "pedro@gmail.com", "321332211", TipoCliente.PESSOAFISICA);
 		
 		cli1.getTelefones().addAll(Arrays.asList("2763323", "9383893"));
 		
