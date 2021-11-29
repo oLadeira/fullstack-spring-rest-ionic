@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class Cliente implements Serializable{
 	private Integer tipo;
 	
 
-	@OneToMany(mappedBy = "cliente")
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL) //cascade define como tem que ser o comportamento de enderecos quando eu for tentar deletar, atualizar Cliente. No tipo ALL quando eu apagar Cliente seus enderecos também serão apagados
 	private List<Endereco> enderecos = new ArrayList<>();
 	
 	@ElementCollection
