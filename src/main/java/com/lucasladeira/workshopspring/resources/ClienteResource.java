@@ -72,7 +72,7 @@ public class ClienteResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Void> save(@RequestBody ClienteNewDTO clienteNewDTO){
+	public ResponseEntity<Void> save(@Valid @RequestBody ClienteNewDTO clienteNewDTO){
 		Cliente cliente = clienteService.fromDTO(clienteNewDTO);		
 		clienteService.save(cliente);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
