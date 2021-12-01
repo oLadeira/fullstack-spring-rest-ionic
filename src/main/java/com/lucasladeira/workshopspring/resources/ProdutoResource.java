@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lucasladeira.workshopspring.domain.Categoria;
 import com.lucasladeira.workshopspring.domain.Produto;
-import com.lucasladeira.workshopspring.dto.CategoriaDTO;
 import com.lucasladeira.workshopspring.dto.ProdutoDTO;
 import com.lucasladeira.workshopspring.resources.utils.URL;
 import com.lucasladeira.workshopspring.services.ProdutoService;
