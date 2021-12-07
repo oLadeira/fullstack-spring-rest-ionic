@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
@@ -30,6 +31,8 @@ import com.lucasladeira.workshopspring.repositories.ItemPedidoRepository;
 import com.lucasladeira.workshopspring.repositories.PagamentoRepository;
 import com.lucasladeira.workshopspring.repositories.PedidoRepository;
 import com.lucasladeira.workshopspring.repositories.ProdutoRepository;
+import com.lucasladeira.workshopspring.services.EmailService;
+import com.lucasladeira.workshopspring.services.SmtpEmailService;
 
 @Configuration
 @Profile("dev")
@@ -61,6 +64,11 @@ public class DevConfig implements CommandLineRunner{
 	
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
+	
+	@Bean
+	public EmailService emailService () {
+		return new SmtpEmailService();
+	}
 	
 	@Override
 	public void run(String... args) throws Exception {
