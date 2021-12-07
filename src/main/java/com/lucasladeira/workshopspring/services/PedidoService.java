@@ -40,6 +40,9 @@ public class PedidoService {
 	@Autowired
 	private EnderecoService enderecoService;
 	
+	@Autowired
+	private EmailService emailService;
+	
 	public List<Pedido> findAll(){
 		return pedidoRepository.findAll();
 	}
@@ -73,7 +76,7 @@ public class PedidoService {
 			ip.setPedido(pedido);
 		}
 		itemPedidoRepository.saveAll(pedido.getItens());
-		System.out.println(pedido);
+		emailService.sendOrderConfirmationEmail(pedido);
 		return pedido;
 	}
 }
